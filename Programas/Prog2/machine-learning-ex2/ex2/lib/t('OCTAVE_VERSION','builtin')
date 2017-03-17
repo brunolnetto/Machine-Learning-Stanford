@@ -1,0 +1,204 @@
+'regexp' is a built-in function from the file libinterp/corefcn/regexp.cc
+
+ -- Built-in Function: [S, E, TE, M, T, NM, SP] = regexp (STR, PAT)
+ -- Built-in Function: [...] = regexp (STR, PAT, "OPT1", ...)
+     Regular expression string matching.
+
+     Search for PAT in STR and return the positions and substrings of
+     any matches, or empty values if there are none.
+
+     The matched pattern PAT can include any of the standard regex
+     operators, including:
+
+     '.'
+          Match any character
+
+     '* + ? {}'
+          Repetition operators, representing
+
+          '*'
+               Match zero or more times
+
+          '+'
+               Match one or more times
+
+          '?'
+               Match zero or one times
+
+          '{N}'
+               Match exactly N times
+
+          '{N,}'
+               Match N or more times
+
+          '{M,N}'
+               Match between M and N times
+
+     '[...] [^...]'
+
+          List operators.  The pattern will match any character listed
+          between "[" and "]".  If the first character is "^" then the
+          pattern is inverted and any character except those listed
+          between brackets will match.
+
+          Escape sequences defined below can also be used inside list
+          operators.  For example, a template for a floating point
+          number might be '[-+.\d]+'.
+
+     '() (?:)'
+          Grouping operator.  The first form, parentheses only, also
+          creates a token.
+
+     '|'
+          Alternation operator.  Match one of a choice of regular
+          expressions.  The alternatives must be delimited by the
+          grouping operator '()' above.
+
+     '^ $'
+          Anchoring operators.  Requires pattern to occur at the start
+          ('^') or end ('$') of the string.
+
+     In addition, the following escaped characters have special meaning.
+
+     '\d'
+          Match any digit
+
+     '\D'
+          Match any non-digit
+
+     '\s'
+          Match any whitespace character
+
+     '\S'
+          Match any non-whitespace character
+
+     '\w'
+          Match any word character
+
+     '\W'
+          Match any non-word character
+
+     '\<'
+          Match the beginning of a word
+
+     '\>'
+          Match the end of a word
+
+     '\B'
+          Match within a word
+
+     Implementation Note: For compatibility with MATLAB, escape
+     sequences in PAT (e.g., "\n" => newline) are expanded even when PAT
+     has been defined with single quotes.  To disable expansion use a
+     second backslash before the escape sequence (e.g., "\\n") or use
+     the 'regexptranslate' function.
+
+     The outputs of 'regexp' default to the order given below
+
+     S
+          The start indices of each matching substring
+
+     E
+          The end indices of each matching substring
+
+     TE
+          The extents of each matched token surrounded by '(...)' in PAT
+
+     M
+          A cell array of the text of each match
+
+     T
+          A cell array of the text of each token matched
+
+     NM
+          A structure containing the text of each matched named token,
+          with the name being used as the fieldname.  A named token is
+          denoted by '(?<name>...)'.
+
+     SP
+          A cell array of the text not returned by match, i.e., what
+          remains if you split the string based on PAT.
+
+     Particular output arguments, or the order of the output arguments,
+     can be selected by additional OPT arguments.  These are strings and
+     the correspondence between the output arguments and the optional
+     argument are
+
+                    'start'                S
+                    'end'                  E
+                    'tokenExtents'         TE
+                    'match'                M
+                    'tokens'               T
+                    'names'                NM
+                    'split'                SP
+
+     Additional arguments are summarized below.
+
+     'once'
+          Return only the first occurrence of the pattern.
+
+     'matchcase'
+          Make the matching case sensitive.  (default)
+
+          Alternatively, use (?-i) in the pattern.
+
+     'ignorecase'
+          Ignore case when matching the pattern to the string.
+
+          Alternatively, use (?i) in the pattern.
+
+     'stringanchors'
+          Match the anchor characters at the beginning and end of the
+          string.  (default)
+
+          Alternatively, use (?-m) in the pattern.
+
+     'lineanchors'
+          Match the anchor characters at the beginning and end of the
+          line.
+
+          Alternatively, use (?m) in the pattern.
+
+     'dotall'
+          The pattern '.' matches all characters including the newline
+          character.  (default)
+
+          Alternatively, use (?s) in the pattern.
+
+     'dotexceptnewline'
+          The pattern '.' matches all characters except the newline
+          character.
+
+          Alternatively, use (?-s) in the pattern.
+
+     'literalspacing'
+          All characters in the pattern, including whitespace, are
+          significant and are used in pattern matching.  (default)
+
+          Alternatively, use (?-x) in the pattern.
+
+     'freespacing'
+          The pattern may include arbitrary whitespace and also comments
+          beginning with the character '#'.
+
+          Alternatively, use (?x) in the pattern.
+
+     'noemptymatch'
+          Zero-length matches are not returned.  (default)
+
+     'emptymatch'
+          Return zero-length matches.
+
+          'regexp ('a', 'b*', 'emptymatch')' returns '[1 2]' because
+          there are zero or more 'b' characters at positions 1 and
+          end-of-string.
+
+     See also: regexpi, strfind, regexprep.
+
+Additional help for built-in functions and operators is
+available in the online version of the manual.  Use the command
+'doc <topic>' to search the manual index.
+
+Help and information about Octave is also available on the WWW
+at http://www.octave.org and via the help@octave.org
+mailing list.
