@@ -10,5 +10,5 @@ Main theme: Machine Learnig
 4. Neural Networks Learning;
 5. Regularized Linear Regression and Bias v.s. Variance;
 6. Support Vector Machines;
-7. <Missing exercise>;
+7. _Missing_ _exercise_;
 8. Anomaly Detection and Recommender Systems.
